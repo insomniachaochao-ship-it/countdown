@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>倒计时</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #e94560;
+        }
+
+        .event-name {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .time-block {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px;
+            min-width: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .time-value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #e94560;
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        .settings {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .settings h3 {
+            margin-bottom: 20px;
+            color: #e94560;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            margin-left: 10px;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            color: #e94560;
+            margin: 40px 0;
+            display: none;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .countdown {
+                gap: 10px;
+            }
+
+            .time-block {
+                min-width: 70px;
+                padding: 15px;
+            }
+
+            .time-value {
+                font-size: 2.5rem;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .event-name {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">倒计时</h1>
+        <p class="event-name" id="eventName">距离目标还有</p>
+
+        <div class="countdown" id="countdown">
+            <div class="time-block">
+                <div class="time-value" id="days">00</div>
+                <div class="time-label">天</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="hours">00</div>
+                <div class="time-label">时</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">分</div>
+            </div>
+            <div class="time-block">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">秒</div>
+            </div>
+        </div>
+
+        <div class="message" id="message">时间到！</div>
+
+        <div class="settings">
+            <h3>设置倒计时</h3>
+            <div class="form-group">
+                <label for="targetName">事件名称</label>
+                <input type="text" id="targetName" placeholder="例如：春节、生日、考试">
+            </div>
+            <div class="form-group">
+                <label for="targetDate">目标日期时间</label>
+                <input type="datetime-local" id="targetDate">
+            </div>
+            <button class="btn" onclick="setCountdown()">开始倒计时</button>
+            <button class="btn btn-secondary" onclick="clearCountdown()">清除</button>
+        </div>
+
+        <div class="footer">
+            倒计时工具 | 数据保存在本地浏览器
+        </div>
+    </div>
+
+    <script>
+        let targetTime = null;
+        let countdownInterval = null;
+
+        // 初始化：从本地存储读取设置
+        function init() {
+            const savedTime = localStorage.getItem('countdown_target');
+            const savedName = localStorage.getItem('countdown_name');
+
+            if (savedTime) {
+                targetTime = new Date(savedTime);
+                document.getElementById('targetDate').value = savedTime.slice(0, 16);
+                if (savedName) {
+                    document.getElementById('targetName').value = savedName;
+                    document.getElementById('eventName').textContent = `距离 ${savedName} 还有`;
+                }
+                startCountdown();
+            }
+        }
+
+        // 设置倒计时
+        function setCountdown() {
+            const dateInput = document.getElementById('targetDate').value;
+            const nameInput = document.getElementById('targetName').value.trim() || '目标';
+
+            if (!dateInput) {
+                alert('请选择目标日期时间');
+                return;
+            }
+
+            targetTime = new Date(dateInput);
+
+            if (targetTime <= new Date()) {
+                alert('请选择未来的时间');
+                return;
+            }
+
+            // 保存到本地存储
+            localStorage.setItem('countdown_target', dateInput);
+            localStorage.setItem('countdown_name', nameInput);
+
+            document.getElementById('eventName').textContent = `距离 ${nameInput} 还有`;
+            document.getElementById('message').style.display = 'none';
+            document.getElementById('countdown').style.display = 'flex';
+
+            startCountdown();
+        }
+
+        // 开始倒计时
+        function startCountdown() {
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+
+            updateDisplay();
+            countdownInterval = setInterval(updateDisplay, 1000);
+        }
+
+        // 更新显示
+        function updateDisplay() {
+            if (!targetTime) return;
+
+            const now = new Date();
+            const diff = targetTime - now;
+
+            if (diff <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').style.display = 'none';
+                document.getElementById('message').style.display = 'block';
+                document.getElementById('eventName').textContent = '时间到！';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // 清除倒计时
+        function clearCountdown() {
+            localStorage.removeItem('countdown_target');
+            localStorage.removeItem('countdown_name');
+            targetTime = null;
+
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
+            document.getElementById('eventName').textContent = '距离目标还有';
+            document.getElementById('message').style.display = 'none';
+            document.getElementById('countdown').style.display = 'flex';
+            document.getElementById('targetName').value = '';
+            document.getElementById('targetDate').value = '';
+        }
+
+        // 页面加载时初始化
+        init();
+    </script>
+</body>
+</html>
