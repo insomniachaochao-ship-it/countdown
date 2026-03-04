@@ -18,9 +18,26 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0d47a1 100%);
             color: #fff;
             padding: 20px;
+        }
+
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo svg {
+            height: 50px;
+            width: auto;
+        }
+
+        .fullscreen-mode .logo {
+            margin-bottom: 30px;
+        }
+
+        .fullscreen-mode .logo svg {
+            height: 60px;
         }
 
         .container {
@@ -32,7 +49,7 @@
         .title {
             font-size: 2rem;
             margin-bottom: 10px;
-            color: #e94560;
+            color: #4fc3f7;
         }
 
         .event-name {
@@ -51,18 +68,18 @@
         }
 
         .time-block {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(79, 195, 247, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 16px;
             padding: 20px;
             min-width: 100px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(79, 195, 247, 0.3);
         }
 
         .time-value {
             font-size: 3.5rem;
             font-weight: bold;
-            color: #e94560;
+            color: #4fc3f7;
             line-height: 1;
         }
 
@@ -73,17 +90,115 @@
             text-transform: uppercase;
         }
 
+        /* 全屏模式下隐藏设置和日志 */
+        .fullscreen-mode .settings,
+        .fullscreen-mode .log-section,
+        .fullscreen-mode .footer {
+            display: none !important;
+        }
+
+        .fullscreen-mode .countdown {
+            margin-bottom: 0;
+        }
+
+        .fullscreen-mode .time-block {
+            min-width: 140px;
+            padding: 30px;
+        }
+
+        .fullscreen-mode .time-value {
+            font-size: 5rem;
+        }
+
+        .fullscreen-mode .title {
+            font-size: 2.5rem;
+        }
+
+        .fullscreen-mode .event-name {
+            font-size: 2rem;
+            margin-bottom: 50px;
+        }
+
         .settings {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(79, 195, 247, 0.05);
             border-radius: 16px;
             padding: 30px;
             margin-top: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(79, 195, 247, 0.2);
         }
 
         .settings h3 {
             margin-bottom: 20px;
-            color: #e94560;
+            color: #4fc3f7;
+        }
+
+        .log-section {
+            background: rgba(79, 195, 247, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(79, 195, 247, 0.2);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-section h3 {
+            margin-bottom: 15px;
+            color: #4fc3f7;
+            font-size: 1rem;
+        }
+
+        .log-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .log-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .log-item:last-child {
+            border-bottom: none;
+        }
+
+        .log-time {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+        }
+
+        .log-empty {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .log-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .log-actions button {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .log-actions button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
         }
 
         .form-group {
@@ -109,11 +224,11 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #e94560;
+            border-color: #4fc3f7;
         }
 
         .btn {
-            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            background: linear-gradient(135deg, #1976d2, #4fc3f7);
             color: #fff;
             border: none;
             padding: 14px 32px;
@@ -126,7 +241,7 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+            box-shadow: 0 10px 30px rgba(79, 195, 247, 0.3);
         }
 
         .btn-secondary {
@@ -136,9 +251,37 @@
 
         .message {
             font-size: 1.5rem;
-            color: #e94560;
+            color: #4fc3f7;
             margin: 40px 0;
             display: none;
+        }
+
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(79, 195, 247, 0.1);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            color: #4fc3f7;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 1000;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(79, 195, 247, 0.2);
+            transform: scale(1.05);
+        }
+
+        .fullscreen-btn svg {
+            width: 24px;
+            height: 24px;
         }
 
         .footer {
@@ -172,7 +315,18 @@
     </style>
 </head>
 <body>
+    <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()" title="全屏切换">
+        <svg id="fullscreenIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+    </button>
     <div class="container">
+        <div class="logo">
+            <svg viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="10" y="38" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#4fc3f7">金蝶</text>
+                <text x="85" y="38" font-family="Arial, sans-serif" font-size="28" fill="#fff" opacity="0.9">Kingdee</text>
+            </svg>
+        </div>
         <h1 class="title">倒计时</h1>
         <p class="event-name" id="eventName">距离目标还有</p>
 
@@ -211,6 +365,16 @@
             <button class="btn btn-secondary" onclick="clearCountdown()">清除</button>
         </div>
 
+        <div class="log-section">
+            <h3>操作日志</h3>
+            <ul class="log-list" id="logList">
+                <li class="log-empty">暂无日志记录</li>
+            </ul>
+            <div class="log-actions">
+                <button onclick="clearLogs()">清除日志</button>
+            </div>
+        </div>
+
         <div class="footer">
             倒计时工具 | 数据保存在本地浏览器
         </div>
@@ -219,6 +383,46 @@
     <script>
         let targetTime = null;
         let countdownInterval = null;
+
+        // 日志功能
+        function addLog(action, detail = '') {
+            const logs = JSON.parse(localStorage.getItem('countdown_logs') || '[]');
+            const now = new Date();
+            const log = {
+                action,
+                detail,
+                time: now.toLocaleString('zh-CN')
+            };
+            logs.unshift(log);
+            // 保留最近50条日志
+            if (logs.length > 50) logs.pop();
+            localStorage.setItem('countdown_logs', JSON.stringify(logs));
+            renderLogs();
+        }
+
+        function renderLogs() {
+            const logs = JSON.parse(localStorage.getItem('countdown_logs') || '[]');
+            const logList = document.getElementById('logList');
+
+            if (logs.length === 0) {
+                logList.innerHTML = '<li class="log-empty">暂无日志记录</li>';
+                return;
+            }
+
+            logList.innerHTML = logs.map(log => `
+                <li class="log-item">
+                    <span>${log.action}${log.detail ? ' - ' + log.detail : ''}</span>
+                    <span class="log-time">${log.time}</span>
+                </li>
+            `).join('');
+        }
+
+        function clearLogs() {
+            if (confirm('确定要清除所有日志吗？')) {
+                localStorage.removeItem('countdown_logs');
+                renderLogs();
+            }
+        }
 
         // 初始化：从本地存储读取设置
         function init() {
@@ -234,6 +438,8 @@
                 }
                 startCountdown();
             }
+
+            renderLogs();
         }
 
         // 设置倒计时
@@ -261,6 +467,8 @@
             document.getElementById('message').style.display = 'none';
             document.getElementById('countdown').style.display = 'flex';
 
+            addLog('设置倒计时', `${nameInput} - ${dateInput.replace('T', ' ')}`);
+
             startCountdown();
         }
 
@@ -285,7 +493,9 @@
                 clearInterval(countdownInterval);
                 document.getElementById('countdown').style.display = 'none';
                 document.getElementById('message').style.display = 'block';
+                const eventName = localStorage.getItem('countdown_name') || '目标';
                 document.getElementById('eventName').textContent = '时间到！';
+                addLog('倒计时结束', eventName);
                 return;
             }
 
@@ -302,6 +512,7 @@
 
         // 清除倒计时
         function clearCountdown() {
+            const eventName = localStorage.getItem('countdown_name') || '目标';
             localStorage.removeItem('countdown_target');
             localStorage.removeItem('countdown_name');
             targetTime = null;
@@ -319,7 +530,36 @@
             document.getElementById('countdown').style.display = 'flex';
             document.getElementById('targetName').value = '';
             document.getElementById('targetDate').value = '';
+
+            addLog('清除倒计时', eventName);
         }
+
+        // 全屏切换
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log('无法进入全屏模式:', err);
+                });
+                document.body.classList.add('fullscreen-mode');
+            } else {
+                document.exitFullscreen();
+                document.body.classList.remove('fullscreen-mode');
+            }
+        }
+
+        // 更新全屏图标
+        function updateFullscreenIcon() {
+            const icon = document.getElementById('fullscreenIcon');
+            if (document.fullscreenElement) {
+                icon.innerHTML = '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>';
+                document.body.classList.add('fullscreen-mode');
+            } else {
+                icon.innerHTML = '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>';
+                document.body.classList.remove('fullscreen-mode');
+            }
+        }
+
+        document.addEventListener('fullscreenchange', updateFullscreenIcon);
 
         // 页面加载时初始化
         init();
